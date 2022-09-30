@@ -1,9 +1,5 @@
 {
-  "git": {
-    "commitMessage": "chore: release v${version}"
-  },
   "github": {
-    "assets": ["dist"],
     "release": true
   }
 }
