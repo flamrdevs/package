@@ -6,33 +6,19 @@
   "types": "./dist/index.d.ts",
   "module": "./dist/index.modern.mjs",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "default": "./dist/index.modern.mjs"
-    },
-    "./lite": {
-      "types": "./dist/lite.d.ts",
-      "require": "./dist/lite.js",
-      "default": "./dist/lite.modern.mjs"
-    }
+    "require": "./dist/index.js",
+    "default": "./dist/index.modern.mjs"
   },
   "files": [
-    "dist"
+    "dist",
+    "lite/package.json"
   ],
   "scripts": {
-    "clean": "rimraf dist",
-    "release": "release-it",
-    "test:dev": "vitest --ui",
-    "test:prod": "vitest run",
-    "test": "yarn run test:prod",
-    "watch:prod": "microbundle watch src/{index,lite}.ts --format modern,cjs",
-    "watch:dev": "microbundle watch src/{index,lite}.ts --format modern,cjs --compress false",
-    "watch": "concurrently \"yarn run watch:dev\" \"yarn run test:dev\"",
-    "dev": "yarn run watch",
-    "build:prod": "microbundle build src/{index,lite}.ts --format modern,cjs --sourcemap false",
-    "build:dev": "microbundle build src/{index,lite}.ts --format modern,cjs --sourcemap false --compress false",
-    "build": "yarn run clean && yarn run test && yarn run build:prod"
+    "test": "vitest run",
+    "test:ui": "vitest --ui",
+    "build": "microbundle src/index.ts --format modern,cjs --sourcemap false",
+    "prerelease": "yarn run test && yarn run build",
+    "release": "release-it --only-version"
   },
   "repository": "https://github.com/flamrdevs/package.git",
   "author": "flamrdevs <flamrdevs@gmail.com>",
